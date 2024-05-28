@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common'
+import { Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common'
 import { LocalGaurd } from '../guard/local.guard'
-import { Request } from 'express'
+import { Request, Response } from 'express'
 import { JwtGuard } from '@src/guard/jwt.guard'
 import { FacebookGuard } from '@src/guard/facebook.guard'
 import { GoogleGuard } from '@src/guard/google.guard'
@@ -19,8 +19,8 @@ export class AuthController {
 
   @Get('google/redirect')
   @UseGuards(GoogleGuard)
-  async handleGoogleRedirect(@Req() req: Request) {
-    return req.user
+  async handleGoogleRedirect(@Req() req: Request, @Res() res: Response) {
+    return res.redirect(`http://localhost:3000/login?token=${req.user}`)
   }
 
   @Get('facebook/login')
@@ -29,8 +29,8 @@ export class AuthController {
 
   @Get('facebook/redirect')
   @UseGuards(FacebookGuard)
-  async handleFacebookRedirect(@Req() req: Request) {
-    return req.user
+  async handleFacebookRedirect(@Req() req: Request, @Res() res: Response) {
+    return res.redirect(`http://localhost:3000/login?token=${req.user}`)
   }
 
   @Get('status')
