@@ -1,5 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common'
 import { PrismaClient } from '@prisma/client'
+import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
@@ -15,11 +16,13 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 
     if (userCount !== 0 || categoriesCount !== 0 || productsCount !== 0) return
 
+    const hashedPassword = await bcrypt.hash('americana', 10)
+
     await this.user.create({
       data: {
         name: 'Americana',
         username: 'prueba@americana.com',
-        password: 'americana'
+        password: hashedPassword
       }
     })
 

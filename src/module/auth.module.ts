@@ -8,7 +8,9 @@ import { GoogleStrategy } from '../strategy/google.strategy'
 import { SessionSerializer } from '../serializer/serializer'
 import { FacebookStrategy } from '../strategy/facebook.strategy'
 import { PrismaModule } from './prisma.module'
+// importa a ver correlo a ver y dime
 
+// pera que ahí no está JAJSJASJ
 @Module({
   imports: [
     PrismaModule,
