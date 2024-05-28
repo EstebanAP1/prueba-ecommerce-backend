@@ -15,25 +15,7 @@ export class UserService {
     password: string
   }) {
     try {
-      if (!name || !username || !password) {
-        return {
-          success: false,
-          message: 'Todos los campos son requeridos.'
-        }
-      }
-      const email = await this.prisma.user.findFirst({
-        where: {
-          username: username
-        }
-      })
-
-      if (email) {
-        return {
-          success: false,
-          message: 'El correo ya se encuentra registrado.'
-        }
-      }
-
+      if (!name || !username || !password) throw new Error('Missing fields')
       await this.prisma.user.create({
         data: {
           name: name,
@@ -43,8 +25,8 @@ export class UserService {
       })
 
       return {
-        success: true,
-        message: '¡Registro exitoso! Por favor inicie sesión.'
+        message: '¡Registro exitoso! Por favor inicie sesión.',
+        success: true
       }
     } catch (error) {
       throw new Error('Error creating user')

@@ -52,7 +52,10 @@ describe('UserService', () => {
       const result = await service.registerUser({ name, username, password })
 
       expect(result).not.toBeNull()
-      expect(result).toEqual(createdUser)
+      expect(result).toEqual({
+        message: '¡Registro exitoso! Por favor inicie sesión.',
+        success: true
+      })
     })
   })
 })

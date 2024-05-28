@@ -20,7 +20,7 @@ export class SessionSerializer extends PassportSerializer {
       arg1: { id: number; username: string; password: string }
     ) => any
   ) {
-    const token = jwt.verify(payload, 'abc123')
+    const token = jwt.verify(payload, process.env.JWT_SECRET)
     const username = token.username
 
     const user = await this.authService.findUser(username)
